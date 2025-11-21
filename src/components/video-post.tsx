@@ -11,6 +11,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { ThankYouImage } from '@/components/thank-you-for-slopping-with-us';
+import { Logo } from '@/components/ui/logo';
 
 interface VideoPostProps {
   video: Video;
@@ -51,16 +52,21 @@ const VerifiedBadge = (props: React.SVGProps<SVGSVGElement>) => (
 
 export const SplashScreen = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const [isInteractable, setIsInteractable] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = 0;
+      }
+      
       const timer = setTimeout(() => {
         setIsInteractable(true);
-      }, 500); // Delay to prevent accidental clicks
+      }, 500); 
 
       return () => clearTimeout(timer);
     } else {
-      setIsInteractable(false); // Reset when closed
+      setIsInteractable(false);
     }
   }, [isOpen]);
 
@@ -74,50 +80,60 @@ export const SplashScreen = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
     >
       <div
         className={cn(
-          'absolute bottom-0 left-1/2 -translate-x-1/2 h-full w-full max-w-[450px] bg-neutral-900 text-white transform transition-transform duration-300 ease-in-out',
+          'absolute bottom-0 left-1/2 -translate-x-1/2 h-full w-full max-w-[450px] bg-neutral-900 text-white transform transition-transform duration-300 ease-in-out font-sans',
           isOpen ? 'translate-y-0' : 'translate-y-full'
         )}
         onClick={(e) => e.stopPropagation()}
       >
-        <Button
-            onClick={onClose}
-            variant="ghost"
-            size="icon"
-            className="absolute top-4 right-4 text-white hover:bg-white/20 hover:text-white z-10"
-          >
-            <X size={24} />
-          </Button>
-        <div className="p-6 pt-12 relative overflow-y-auto h-full">
-
-          <div className="flex justify-center mb-6 pt-2">
-            <ThankYouImage className="w-full h-auto max-w-[300px]" />
+         <div className="absolute top-0 left-0 right-0 p-4 flex items-center justify-between h-16 z-10">
+          <div className="w-10"></div> {/* Spacer for the left side */}
+          <div className="flex-grow flex justify-center">
+            <Logo className="w-auto h-16" fill="white"/>
           </div>
+          <Button
+              onClick={onClose}
+              variant="ghost"
+              size="icon"
+              className="text-white hover:bg-white/20 hover:text-white w-10 h-10"
+            >
+              <X size={24} />
+            </Button>
+        </div>
 
-          <div className="space-y-4">
-            <p className="text-base text-white">
-              Now/instead, support these non-profits committed to making high-quality, human-created knowledge available to the world. Your contribution directly funds reliable human editing, ethical sharing tools, and a permanent public library — helping ensure accurate, trustworthy knowledge is accessible & free forever.
-            </p>
-            <div className="space-y-6 pt-4">
-              <div>
-                <h3 className="font-semibold text-lg text-white">Wikimedia Foundation (Wikipedia)</h3>
-                <p className="text-base text-neutral-300 mt-1">For reliable human editing and review and ad-free knowledge.</p>
-                 <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold w-auto px-4 text-left mt-4" disabled={!isInteractable}>
-                    <Link href="https://donate.wikimedia.org/" target="_blank">Donate</Link>
-                </Button>
+        <div ref={scrollRef} className="relative overflow-y-auto h-full">
+          <div className="p-6 pt-20">
+            <div className="flex justify-center mb-6">
+              <ThankYouImage className="w-full h-auto max-w-[300px]" />
+            </div>
+
+            <div className="space-y-4">
+              <div className="p-4 rounded-lg">
+                <p className="text-base text-white/90">
+                  Now/instead, support these non-profits committed to making high-quality, human-created knowledge available to the world. Your contribution directly funds reliable human editing, ethical sharing tools, and a permanent public library — helping ensure accurate, trustworthy knowledge is accessible & free forever.
+                </p>
               </div>
-              <div>
-                <h3 className="font-semibold text-lg text-white">Creative Commons (CC)</h3>
-                <p className="text-base text-neutral-300 mt-1">For tools that enable ethical sharing and reuse of creative works. (donations are via classy.org)</p>
-                <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold w-auto px-4 text-left mt-4" disabled={!isInteractable}>
-                    <Link href="https://www.classy.org/give/313412/#!/donation/checkout" target="_blank">Donate</Link>
-                </Button>
-              </div>
-              <div>
-                <h3 className="font-semibold text-lg text-white">The Internet Archive</h3>
-                <p className="text-base text-neutral-300 mt-1">For maintaining a permanent digital library and historical record.</p>
-                 <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold w-auto px-4 text-left mt-4" disabled={!isInteractable}>
-                    <Link href="https://archive.org/donate/" target="_blank">Donate</Link>
-                </Button>
+              <div className="space-y-4 pt-4">
+                <div className="bg-neutral-800 p-4 rounded-lg border border-neutral-700">
+                  <h3 className="font-semibold text-lg text-white">Wikimedia Foundation (Wikipedia)</h3>
+                  <p className="text-[13px] text-white mt-1">For reliable human editing and review and ad-free knowledge.</p>
+                  <Button asChild className={cn("bg-cyan-600 hover:bg-cyan-700 text-white w-auto px-4 text-left mt-4 transition-opacity duration-500", isInteractable ? "opacity-100" : "opacity-0")} disabled={!isInteractable}>
+                      <Link href="https://donate.wikimedia.org/" target="_blank" className="font-bold">Donate</Link>
+                  </Button>
+                </div>
+                <div className="bg-neutral-800 p-4 rounded-lg border border-neutral-700">
+                  <h3 className="font-semibold text-lg text-white">Creative Commons (CC)</h3>
+                  <p className="text-[13px] text-white mt-1">For tools that enable ethical sharing and reuse of creative works. (donations are via classy.org)</p>
+                  <Button asChild className={cn("bg-cyan-600 hover:bg-cyan-700 text-white w-auto px-4 text-left mt-4 transition-opacity duration-500", isInteractable ? "opacity-100" : "opacity-0")} disabled={!isInteractable}>
+                      <Link href="https://www.classy.org/give/313412/#!/donation/checkout" target="_blank" className="font-bold">Donate</Link>
+                  </Button>
+                </div>
+                <div className="bg-neutral-800 p-4 rounded-lg border border-neutral-700">
+                  <h3 className="font-semibold text-lg text-white">The Internet Archive</h3>
+                  <p className="text-[13px] text-white mt-1">For maintaining a permanent digital library and historical record.</p>
+                  <Button asChild className={cn("bg-cyan-600 hover:bg-cyan-700 text-white w-auto px-4 text-left mt-4 transition-opacity duration-500", isInteractable ? "opacity-100" : "opacity-0")} disabled={!isInteractable}>
+                      <Link href="https://archive.org/donate/" target="_blank" className="font-bold">Donate</Link>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -136,10 +152,25 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
   const [isClient, setIsClient] = useState(false);
   const pressTimer = useRef<NodeJS.Timeout | null>(null);
   const wasLongPress = useRef(false);
+  const [isCtaVisible, setIsCtaVisible] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        setIsCtaVisible(true);
+      }, 1000);
+      return () => {
+        clearTimeout(timer)
+        setIsCtaVisible(false);
+      };
+    } else {
+        setIsCtaVisible(false);
+    }
+  }, [isVisible]);
 
   useEffect(() => {
     if (!isClient) return;
@@ -178,8 +209,7 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
       
     } else {
       videoElement.pause();
-      if (isVisible) { // Only change loading state if the video is visible
-          // Don't set isLoading to true when splash is open, just pause.
+      if (isVisible) {
       } else {
           videoElement.currentTime = 0;
           setIsLoading(true);
@@ -217,7 +247,6 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
     
     const videoElement = videoRef.current;
     if (videoElement && videoElement.paused && isPaused && !isSplashOpen) {
-      // Only resume play if it was a long press that caused the pause
       if (wasLongPress.current) {
          videoElement.play();
          setIsPaused(false);
@@ -244,7 +273,7 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
     e.stopPropagation();
   };
   
-  const handleOpenSplash = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleOpenSplash = (e: React.MouseEvent) => {
       e.stopPropagation();
       onOpenSplash();
   }
@@ -317,13 +346,11 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
           
           <div className="mt-3 pointer-events-auto w-full">
             <Button 
-              variant="secondary"
               className={cn(
-                "w-full h-auto text-white text-sm transition-colors duration-500 justify-between rounded-lg px-4 py-3",
-                buttonColorClass
+                "w-full h-auto text-white text-sm transition-colors duration-1000 justify-between rounded-lg px-4 py-3",
+                isCtaVisible ? buttonColorClass : "bg-gray-500/50 hover:bg-gray-500/60"
               )}
               onClick={handleOpenSplash}
-              onTouchStart={handleOpenSplash}
             >
               <span className="font-semibold">{buttonText}</span>
               <ChevronRight className="h-5 w-5 font-semibold" />
@@ -365,3 +392,6 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
 };
 
 export default VideoPost;
+
+    
+    

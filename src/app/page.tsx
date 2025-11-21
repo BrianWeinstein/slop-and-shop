@@ -4,8 +4,10 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { videos as initialVideos, type Video } from '@/lib/placeholder-videos';
 import VideoPost, { SplashScreen } from '@/components/video-post';
-import { Loader2, ArrowDown } from 'lucide-react';
+import { Loader2, ArrowDown, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Logo } from '@/components/ui/logo';
+import { Button } from '@/components/ui/button';
 
 // Fisher-Yates shuffle algorithm
 const shuffleArray = (array: Video[]) => {
@@ -169,8 +171,16 @@ export default function ReelFeedPage() {
 
   return (
     <div className="h-full w-full relative bg-black">
-       <SplashScreen isOpen={isSplashOpen} onClose={handleCloseSplash} />
+      <SplashScreen isOpen={isSplashOpen} onClose={handleCloseSplash} />
 
+      <div className="absolute top-0 left-0 right-0 p-4 flex items-center justify-center h-16 z-20 pointer-events-none">
+        <div className="flex-grow flex justify-center pointer-events-auto">
+          <button onClick={handleOpenSplash}>
+            <Logo className="w-auto h-16" fill="white"/>
+          </button>
+        </div>
+      </div>
+      
       <div 
         className="absolute top-0 left-0 right-0 flex items-center justify-center text-white transition-opacity duration-300 z-10"
         style={{ 
@@ -219,3 +229,5 @@ export default function ReelFeedPage() {
     </div>
   );
 }
+
+    
