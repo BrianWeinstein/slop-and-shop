@@ -11,7 +11,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { ThankYouImage } from '@/components/thank-you-for-slopping-with-us';
-import { Logo } from '@/components/ui/logo';
+import { Logo } from '@/components/logo';
 
 interface VideoPostProps {
   video: Video;
