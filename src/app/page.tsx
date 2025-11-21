@@ -3,8 +3,9 @@
 
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { videos as initialVideos, type Video } from '@/lib/placeholder-videos';
-import VideoPost from '@/components/video-post';
+import VideoPost, { SplashScreen } from '@/components/video-post';
 import { Loader2, ArrowDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 // Fisher-Yates shuffle algorithm
 const shuffleArray = (array: Video[]) => {
@@ -35,11 +36,15 @@ export default function ReelFeedPage() {
   const [isMuted, setIsMuted] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const observer = useRef<IntersectionObserver | null>(null);
+  const [isSplashOpen, setIsSplashOpen] = useState(false);
 
   // Pull to refresh state
   const [touchStartY, setTouchStartY] = useState(0);
   const [pullDistance, setPullDistance] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleOpenSplash = () => setIsSplashOpen(true);
+  const handleCloseSplash = () => setIsSplashOpen(false);
 
   const shuffleVideos = useCallback(() => {
     setIsRefreshing(true);
@@ -133,13 +138,13 @@ export default function ReelFeedPage() {
 
   // Pull to refresh handlers
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (containerRef.current?.scrollTop === 0) {
+    if (containerRef.current?.scrollTop === 0 && !isSplashOpen) {
       setTouchStartY(e.targetTouches[0].clientY);
     }
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (touchStartY === 0) return;
+    if (touchStartY === 0 || isSplashOpen) return;
 
     const currentTouchY = e.targetTouches[0].clientY;
     const distance = currentTouchY - touchStartY;
@@ -151,7 +156,7 @@ export default function ReelFeedPage() {
   };
 
   const handleTouchEnd = () => {
-    if (touchStartY === 0) return;
+    if (touchStartY === 0 || isSplashOpen) return;
 
     if (pullDistance > PULL_TO_REFRESH_THRESHOLD) {
       shuffleVideos();
@@ -164,8 +169,10 @@ export default function ReelFeedPage() {
 
   return (
     <div className="h-full w-full relative bg-black">
+       <SplashScreen isOpen={isSplashOpen} onClose={handleCloseSplash} />
+
       <div 
-        className="absolute top-0 left-0 right-0 flex items-center justify-center text-white transition-opacity duration-300"
+        className="absolute top-0 left-0 right-0 flex items-center justify-center text-white transition-opacity duration-300 z-10"
         style={{ 
           height: `${PULL_TO_REFRESH_THRESHOLD}px`,
           transform: `translateY(${Math.min(pullDistance, PULL_TO_REFRESH_THRESHOLD) - PULL_TO_REFRESH_THRESHOLD}px)`,
@@ -184,7 +191,7 @@ export default function ReelFeedPage() {
 
       <main 
         ref={containerRef} 
-        className="h-full w-full overflow-y-scroll snap-y snap-mandatory"
+        className={cn("h-full w-full snap-y snap-mandatory", isSplashOpen ? "overflow-hidden" : "overflow-y-scroll")}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -203,6 +210,8 @@ export default function ReelFeedPage() {
               isMuted={isMuted}
               onToggleMute={toggleMute}
               preload={getPreloadStrategy(index)}
+              onOpenSplash={handleOpenSplash}
+              isSplashOpen={isSplashOpen}
             />
           </section>
         ))}
