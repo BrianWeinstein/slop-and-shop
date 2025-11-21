@@ -98,24 +98,24 @@ export const SplashScreen = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
               Now/instead, support these non-profits committed to making high-quality, human-created knowledge available to the world. Your contribution directly funds reliable human editing, ethical sharing tools, and a permanent public library — helping ensure accurate, trustworthy knowledge is accessible & free forever.
             </p>
             <div className="space-y-6 pt-4">
-              <div className="space-y-2">
+              <div>
                 <h3 className="font-semibold text-lg text-white">Wikimedia Foundation (Wikipedia)</h3>
-                <p className="text-base text-neutral-300">For reliable human editing and review and ad-free knowledge.</p>
-                 <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold w-full" disabled={!isInteractable}>
+                <p className="text-base text-neutral-300 mt-1">For reliable human editing and review and ad-free knowledge.</p>
+                 <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold w-auto px-4 text-left mt-4" disabled={!isInteractable}>
                     <Link href="https://donate.wikimedia.org/" target="_blank">Donate</Link>
                 </Button>
               </div>
-              <div className="space-y-2">
+              <div>
                 <h3 className="font-semibold text-lg text-white">Creative Commons (CC)</h3>
-                <p className="text-base text-neutral-300">For tools that enable ethical sharing and reuse of creative works. (donations are via classy.org)</p>
-                <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold w-full" disabled={!isInteractable}>
+                <p className="text-base text-neutral-300 mt-1">For tools that enable ethical sharing and reuse of creative works. (donations are via classy.org)</p>
+                <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold w-auto px-4 text-left mt-4" disabled={!isInteractable}>
                     <Link href="https://www.classy.org/give/313412/#!/donation/checkout" target="_blank">Donate</Link>
                 </Button>
               </div>
-              <div className="space-y-2">
+              <div>
                 <h3 className="font-semibold text-lg text-white">The Internet Archive</h3>
-                <p className="text-base text-neutral-300">For maintaining a permanent digital library and historical record.</p>
-                 <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold w-full" disabled={!isInteractable}>
+                <p className="text-base text-neutral-300 mt-1">For maintaining a permanent digital library and historical record.</p>
+                 <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold w-auto px-4 text-left mt-4" disabled={!isInteractable}>
                     <Link href="https://archive.org/donate/" target="_blank">Donate</Link>
                 </Button>
               </div>
