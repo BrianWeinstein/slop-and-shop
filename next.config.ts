@@ -4,9 +4,6 @@ const nextConfig: NextConfig = {
   /* config options here */
   output: 'export',
   basePath: '/slop-and-shop',
-  env: {
-    NEXT_PUBLIC_BASE_PATH: '/slop-and-shop',
-  },
   devIndicators: false,
   typescript: {
     ignoreBuildErrors: true,
