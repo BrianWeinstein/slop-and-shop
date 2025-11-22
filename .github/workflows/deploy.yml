@@ -32,7 +32,6 @@ jobs:
       - name: Deploy 🚀
         uses: peaceiris/actions-gh-pages@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./dist # or ./dist if your Vite build outputs to dist
           # For single page applications, set cname and enable history api fallback
