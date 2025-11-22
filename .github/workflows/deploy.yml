@@ -3,17 +3,13 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # the branch you push your source code to
+      - main # The branch you push your source code to
 
+# Sets permissions needed for the actions/deploy-pages action
 jobs:
-  build-and-deploy:
+  # 1. Build Job: Builds the app and uploads the 'dist' directory as an artifact
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pages: write
-      id-token: write 
-
-
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
@@ -21,20 +17,38 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.16.0' # Use a recent Node.js version
+          node-version: '22.16.0'
 
       - name: Install dependencies 🔧
-        run: npm install # or yarn install
+        run: npm install
 
       - name: Build 🏗️
         run: npm run build
 
-      - name: Deploy 🚀
-        uses: peaceiris/actions-gh-pages@v4
+      # The 'dist' folder is uploaded as an artifact named 'github-pages'
+      - name: Upload pages artifact ⬆️
+        uses: actions/upload-pages-artifact@v3
         with:
-          publish_branch: gh-pages
-          publish_dir: ./dist # or ./dist if your Vite build outputs to dist
-          # For single page applications, set cname and enable history api fallback
-          # cname: your-custom-domain.com # Uncomment if you have a custom domain
-          # enable_jekyll: false # Set to false if you are not using Jekyll
-          # history_api_fallback: true # Useful for React Router or SPA routing
+          path: './dist' # Ensure this path matches your build output directory (e.g., './dist' for Vite/modern tools)
+
+  ---
+
+  # 2. Deploy Job: Deploys the artifact created in the 'build' job
+  deploy:
+    needs: build # This job runs only after the 'build' job completes successfully
+    
+    # Required for the deployment environment and URL display
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write 
+      
+    steps:
+      - name: Deploy to GitHub Pages 🚀
+        id: deployment
+        uses: actions/deploy-pages@v4
