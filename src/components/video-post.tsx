@@ -284,6 +284,7 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
   
   const handleButtonInteraction = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
+    onOpenSplash();
   };
   
   const handleOpenSplash = (e: React.MouseEvent) => {
@@ -341,7 +342,7 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
         className="absolute inset-0 p-4 pb-6 flex items-end justify-between pointer-events-none bg-gradient-to-t from-black/60 to-transparent"
       >
         <div className="flex-grow text-white pr-4">
-          <div className="flex items-center gap-2 pointer-events-auto">
+          <div className="flex items-center gap-2 pointer-events-auto" onClick={handleButtonInteraction}>
             <Avatar className="h-10 w-10 border-2 border-white">
               <AvatarImage src={avatarImage?.imageUrl} alt={avatarImage?.description} />
               <AvatarFallback>{video.user.charAt(1).toUpperCase()}</AvatarFallback>
@@ -412,6 +413,7 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
 };
 
 export default VideoPost;
+
 
 
 
