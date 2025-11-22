@@ -11,7 +11,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { ThankYouImage } from '@/components/thank-you-for-slopping-with-us';
-import { Logo } from '@/components/logo';
+import { Logo } from '@/components/ui/logo';
 
 interface VideoPostProps {
   video: Video;
@@ -103,7 +103,7 @@ export const SplashScreen = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
         <div ref={scrollRef} className="relative overflow-y-auto h-full">
           <div className="p-6 pt-20">
             <div className="flex justify-center mb-6">
-              <ThankYouImage className="w-full h-auto max-w-[300px]" />
+              <ThankYouImage className="w-full h-auto max-w-[300px]" fill="white" />
             </div>
 
             <div className="space-y-4">

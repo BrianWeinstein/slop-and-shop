@@ -8,11 +8,7 @@ export const Logo = (props: React.SVGProps<SVGSVGElement>) => (
     preserveAspectRatio="xMidYMid meet"
     {...props}
   >
-    <metadata>
-    Created by potrace 1.16, written by Peter Selinger 2001-2019
-    </metadata>
-    <g transform="translate(0.000000,440.000000) scale(0.100000,-0.100000)"
-    fill="#000000" stroke="none">
+    <g transform="translate(0.000000,440.000000) scale(0.100000,-0.100000)">
     <path d="M1414 2790 c-107 -16 -189 -59 -238 -123 -52 -68 -66 -198 -31 -282
     20 -49 87 -122 204 -224 157 -137 201 -201 201 -291 0 -83 -55 -169 -132 -207
     -64 -33 -185 -47 -266 -33 -118 20 -177 58 -213 135 -23 49 -24 83 -3 134 20
