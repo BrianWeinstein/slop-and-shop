@@ -141,7 +141,7 @@ export const SplashScreen = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                 </div>
                 </div>
                 <div className="text-center py-6">
-                  <Link href="https://about-placeholder.com" target="_blank" className="text-sm text-white/70 hover:text-white">
+                  <Link href="https://bweinstein.medium.com/cef712281359?source=friends_link&sk=2deb760cf807bad1b146c46d1c1f88b8" target="_blank" className="text-sm text-white/70 hover:text-white">
                     About
                   </Link>
                   <span className="mx-3 text-white/70">&middot;</span>
