@@ -23,6 +23,8 @@ interface VideoPostProps {
   isSplashOpen: boolean;
 }
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 const mediumDarkColors = [
   'bg-blue-600 hover:bg-blue-700',
   'bg-green-600 hover:bg-green-700',
@@ -303,7 +305,7 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
       {isClient && (
         <video
           ref={videoRef}
-          src={video.src}
+          src={basePath + video.src}
           loop
           playsInline
           className="h-full w-full object-cover"
