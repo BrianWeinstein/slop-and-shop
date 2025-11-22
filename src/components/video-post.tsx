@@ -145,7 +145,7 @@ export const SplashScreen = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                     About
                   </Link>
                   <span className="mx-3 text-white/70">&middot;</span>
-                  <Link href="https://github-placeholder.com" target="_blank" className="text-sm text-white/70 hover:text-white">
+                  <Link href="https://github.com/BrianWeinstein/slop-and-shop" target="_blank" className="text-sm text-white/70 hover:text-white">
                     GitHub
                   </Link>
                 </div>
