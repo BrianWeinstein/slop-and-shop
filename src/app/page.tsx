@@ -6,7 +6,7 @@ import { videos as initialVideos, type Video } from '@/lib/placeholder-videos';
 import VideoPost, { SplashScreen } from '@/components/video-post';
 import { Loader2, ArrowDown, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Logo } from '@/components/logo';
+import { Logo } from '@/components/ui/logo';
 import { Button } from '@/components/ui/button';
 
 // Fisher-Yates shuffle algorithm

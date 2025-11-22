@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -6,9 +7,12 @@ export const Logo = (props: React.SVGProps<SVGSVGElement>) => (
   <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
     width="1024.000000pt" height="440.000000pt" viewBox="0 0 1024.000000 440.000000"
     preserveAspectRatio="xMidYMid meet"
+    role="img"
     {...props}
   >
-    <g transform="translate(0.000000,440.000000) scale(0.100000,-0.100000)">
+    <title>Slop & Shop Logo</title>
+    <g transform="translate(0.000000,440.000000) scale(0.100000,-0.100000)"
+    stroke="none">
     <path d="M1414 2790 c-107 -16 -189 -59 -238 -123 -52 -68 -66 -198 -31 -282
     20 -49 87 -122 204 -224 157 -137 201 -201 201 -291 0 -83 -55 -169 -132 -207
     -64 -33 -185 -47 -266 -33 -118 20 -177 58 -213 135 -23 49 -24 83 -3 134 20

@@ -10,7 +10,7 @@ import type { Video } from '@/lib/placeholder-videos';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { ThankYouImage } from '@/components/thank-you-for-slopping-with-us';
+import { ThankYouImage } from '@/components/ui/thank-you-for-slopping-with-us';
 import { Logo } from '@/components/ui/logo';
 
 interface VideoPostProps {
@@ -51,7 +51,6 @@ const VerifiedBadge = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 export const SplashScreen = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
-  const [isInteractable, setIsInteractable] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -59,14 +58,6 @@ export const SplashScreen = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
       if (scrollRef.current) {
         scrollRef.current.scrollTop = 0;
       }
-      
-      const timer = setTimeout(() => {
-        setIsInteractable(true);
-      }, 500); 
-
-      return () => clearTimeout(timer);
-    } else {
-      setIsInteractable(false);
     }
   }, [isOpen]);
 
@@ -85,58 +76,78 @@ export const SplashScreen = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
         )}
         onClick={(e) => e.stopPropagation()}
       >
-         <div className="absolute top-0 left-0 right-0 p-4 flex items-center justify-between h-16 z-10">
-          <div className="w-10"></div> {/* Spacer for the left side */}
-          <div className="flex-grow flex justify-center">
-            <Logo className="w-auto h-16" fill="white"/>
-          </div>
-          <Button
-              onClick={onClose}
-              variant="ghost"
-              size="icon"
-              className="text-white hover:bg-white/20 hover:text-white w-10 h-10"
-            >
-              <X size={24} />
-            </Button>
-        </div>
-
+        <Button
+            onClick={onClose}
+            variant="ghost"
+            size="icon"
+            className="absolute top-3 right-4 text-white bg-neutral-800 hover:bg-neutral-700 hover:text-white w-10 h-10 pointer-events-auto rounded-full z-20"
+        >
+            <X size={24} />
+        </Button>
         <div ref={scrollRef} className="relative overflow-y-auto h-full">
-          <div className="p-6 pt-20">
-            <div className="flex justify-center mb-6">
-              <ThankYouImage className="w-full h-auto max-w-[300px]" fill="white" />
+            <div className="flex items-center justify-center">
+                <Logo className="w-auto h-16" fill="white" />
             </div>
+            <div className="p-6 pt-0">
+                <div className="flex justify-center mb-4 mt-8">
+                <ThankYouImage className="w-full h-auto max-w-[300px]" fill="white" />
+                </div>
 
-            <div className="space-y-4">
-              <div className="p-4 rounded-lg">
-                <p className="text-base text-white/90">
-                  Now/instead, support these non-profits committed to making high-quality, human-created knowledge available to the world. Your contribution directly funds reliable human editing, ethical sharing tools, and a permanent public library — helping ensure accurate, trustworthy knowledge is accessible & free forever.
-                </p>
-              </div>
-              <div className="space-y-4 pt-4">
-                <div className="bg-neutral-800 p-4 rounded-lg border border-neutral-700">
-                  <h3 className="font-semibold text-lg text-white">Wikimedia Foundation (Wikipedia)</h3>
-                  <p className="text-[13px] text-white mt-1">For reliable human editing and review and ad-free knowledge.</p>
-                  <Button asChild className={cn("bg-cyan-600 hover:bg-cyan-700 text-white w-auto px-4 text-left mt-4 transition-opacity duration-500", isInteractable ? "opacity-100" : "opacity-0")} disabled={!isInteractable}>
-                      <Link href="https://donate.wikimedia.org/" target="_blank" className="font-bold">Donate</Link>
-                  </Button>
+                <div className="space-y-4">
+                <div className="p-4 rounded-lg">
+                    <p className="text-[16px] text-white/90">
+                    Thank you for slopping with us! But now/instead, you should support these non-profits committed to making high-quality, human-created knowledge available to the world. Your contribution directly funds reliable human editing, ethical sharing tools, and a permanent public library — helping ensure accurate, trustworthy knowledge is accessible & free forever.
+                    </p>
                 </div>
-                <div className="bg-neutral-800 p-4 rounded-lg border border-neutral-700">
-                  <h3 className="font-semibold text-lg text-white">Creative Commons (CC)</h3>
-                  <p className="text-[13px] text-white mt-1">For tools that enable ethical sharing and reuse of creative works. (donations are via classy.org)</p>
-                  <Button asChild className={cn("bg-cyan-600 hover:bg-cyan-700 text-white w-auto px-4 text-left mt-4 transition-opacity duration-500", isInteractable ? "opacity-100" : "opacity-0")} disabled={!isInteractable}>
-                      <Link href="https://www.classy.org/give/313412/#!/donation/checkout" target="_blank" className="font-bold">Donate</Link>
-                  </Button>
+                <div className="space-y-4 pt-4">
+                    <div className="bg-neutral-800 p-4 rounded-lg border border-neutral-700">
+                      <h3 className="font-semibold text-lg text-white">Wikimedia Foundation (Wikipedia)</h3>
+                      <p className="text-sm text-white mt-1">For reliable human editing and review and ad-free knowledge.</p>
+                      <div className="flex items-center gap-2 mt-4">
+                        <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white w-auto px-4 text-left text-sm font-bold">
+                            <Link href="https://donate.wikimedia.org/" target="_blank">Donate</Link>
+                        </Button>
+                         <Button asChild variant="outline" className="bg-black-100 text-gray-300 border-white/20 hover:bg-white/10 hover:text-white text-sm">
+                            <Link href="https://wikimediafoundation.org/news/2025/11/09/7-reasons-you-should-donate-to-wikipedia/" target="_blank">Learn more</Link>
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="bg-neutral-800 p-4 rounded-lg border border-neutral-700">
+                      <h3 className="font-semibold text-lg text-white">Creative Commons (CC)</h3>
+                      <p className="text-sm text-white mt-1">For tools that enable ethical sharing and reuse of creative works. (donations are via classy.org)</p>
+                      <div className="flex items-center gap-2 mt-4">
+                        <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white w-auto px-4 text-left text-sm font-bold">
+                            <Link href="https://www.classy.org/give/313412/#!/donation/checkout" target="_blank">Donate</Link>
+                        </Button>
+                         <Button asChild variant="outline" className="bg-black-100 text-gray-300 border-white/20 hover:bg-white/10 hover:text-white text-sm">
+                            <Link href="https://creativecommons.org/about/" target="_blank">Learn more</Link>
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="bg-neutral-800 p-4 rounded-lg border border-neutral-700">
+                      <h3 className="font-semibold text-lg text-white">The Internet Archive</h3>
+                      <p className="text-sm text-white mt-1">For maintaining a permanent digital library and historical record.</p>
+                      <div className="flex items-center gap-2 mt-4">
+                        <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white w-auto px-4 text-left text-sm font-bold">
+                            <Link href="https://archive.org/donate/" target="_blank">Donate</Link>
+                        </Button>
+                         <Button asChild variant="outline" className="bg-black-100 text-gray-300 border-white/20 hover:bg-white/10 hover:text-white text-sm">
+                            <Link href="https://archive.org/about/" target="_blank">Learn more</Link>
+                        </Button>
+                      </div>
+                    </div>
                 </div>
-                <div className="bg-neutral-800 p-4 rounded-lg border border-neutral-700">
-                  <h3 className="font-semibold text-lg text-white">The Internet Archive</h3>
-                  <p className="text-[13px] text-white mt-1">For maintaining a permanent digital library and historical record.</p>
-                  <Button asChild className={cn("bg-cyan-600 hover:bg-cyan-700 text-white w-auto px-4 text-left mt-4 transition-opacity duration-500", isInteractable ? "opacity-100" : "opacity-0")} disabled={!isInteractable}>
-                      <Link href="https://archive.org/donate/" target="_blank" className="font-bold">Donate</Link>
-                  </Button>
                 </div>
-              </div>
+                <div className="text-center py-6">
+                  <Link href="https://about-placeholder.com" target="_blank" className="text-sm text-white/70 hover:text-white">
+                    About
+                  </Link>
+                  <span className="mx-3 text-white/70">&middot;</span>
+                  <Link href="https://github-placeholder.com" target="_blank" className="text-sm text-white/70 hover:text-white">
+                    GitHub
+                  </Link>
+                </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -162,7 +173,7 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
     if (isVisible) {
       const timer = setTimeout(() => {
         setIsCtaVisible(true);
-      }, 1000);
+      }, 400);
       return () => {
         clearTimeout(timer)
         setIsCtaVisible(false);
@@ -325,12 +336,12 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
       )}
 
       <div 
-        className="absolute bottom-0 left-0 right-0 p-4 pb-6 flex items-end justify-between pointer-events-none bg-gradient-to-t from-black/60 to-transparent"
+        className="absolute inset-0 p-4 pb-6 flex items-end justify-between pointer-events-none bg-gradient-to-t from-black/60 to-transparent"
       >
         <div className="flex-grow text-white pr-4">
           <div className="flex items-center gap-2 pointer-events-auto">
             <Avatar className="h-10 w-10 border-2 border-white">
-              <AvatarImage src={avatarImage?.imageUrl} alt={avatarImage?.description} data-ai-hint={avatarImage?.imageHint} />
+              <AvatarImage src={avatarImage?.imageUrl} alt={avatarImage?.description} />
               <AvatarFallback>{video.user.charAt(1).toUpperCase()}</AvatarFallback>
             </Avatar>
             <span className="font-semibold text-sm">{video.user}</span>
@@ -382,9 +393,16 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
         </div>
       </div>
 
-      <div className="absolute top-4 right-4 pointer-events-auto">
-        <Button onClick={handleToggleMute} variant="ghost" size="icon" className="text-white bg-black/30 hover:bg-black/50 hover:text-white rounded-full" aria-label="Toggle mute">
-          {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+      <div className="absolute top-3 right-4 pointer-events-auto z-20">
+        <Button 
+          onClick={handleToggleMute} 
+          variant="ghost" 
+          size="icon" 
+          className="text-white hover:bg-black/60 hover:text-white rounded-full w-10 h-10"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
+          aria-label="Toggle mute"
+        >
+          {isMuted ? <VolumeX size={22} /> : <Volume2 size={22} />}
         </Button>
       </div>
     </div>
@@ -393,5 +411,6 @@ const VideoPost: React.FC<VideoPostProps> = ({ video, isVisible, isMuted, onTogg
 
 export default VideoPost;
 
-    
-    
+
+
+
