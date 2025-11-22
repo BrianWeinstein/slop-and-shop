@@ -45,7 +45,7 @@ export default function ReelFeedPage() {
   const [pullDistance, setPullDistance] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const handleOpenSplash = () => setIsSplashOpen(true);
+  const handleOpenSplash = useCallback(() => setIsSplashOpen(true), []);
   const handleCloseSplash = () => setIsSplashOpen(false);
 
   const shuffleVideos = useCallback(() => {
@@ -76,6 +76,13 @@ export default function ReelFeedPage() {
     return videos.findIndex(v => v.id === currentVideoId);
   }, [currentVideoId, videos]);
 
+  useEffect(() => {
+    // Open splash screen after scrolling from video 5 to 6 (index 4 to 5)
+    if (currentVideoIndex === 5) {
+      handleOpenSplash();
+    }
+  }, [currentVideoIndex, handleOpenSplash]);
+  
   useEffect(() => {
     if (currentVideoIndex !== -1 && videos.length - currentVideoIndex <= LOAD_MORE_THRESHOLD) {
       setVideos(prevVideos => [...prevVideos, ...shuffleArray(initialVideos)]);
