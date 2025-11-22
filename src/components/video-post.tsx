@@ -91,14 +91,14 @@ export const SplashScreen = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                 <Logo className="w-auto h-16" fill="white" />
             </div>
             <div className="p-6 pt-0">
-                <div className="flex justify-center mb-4 mt-8">
+                <div className="flex justify-center mb-4 mt-4">
                 <ThankYouImage className="w-full h-auto max-w-[300px]" fill="white" />
                 </div>
 
                 <div className="space-y-4">
-                <div className="p-4 rounded-lg">
+                <div className="p-2 rounded-lg">
                     <p className="text-[16px] text-white/90">
-                    Thank you for slopping with us! But now/instead, you should support these non-profits committed to making high-quality, human-created knowledge available to the world. Your contribution directly funds reliable human editing, ethical sharing tools, and a permanent public library — helping ensure accurate, trustworthy knowledge is accessible & free forever. Learn more and donate below.
+                    Thank you for slopping with us! But now/instead, you should <b>support these non-profits committed to making high-quality, human-created knowledge available to the world</b>. Your contribution directly funds reliable human editing, ethical sharing tools, and a permanent public library — helping ensure accurate, trustworthy knowledge is accessible & free forever.
                     </p>
                 </div>
                 <div className="space-y-4 pt-4">
