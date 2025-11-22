@@ -98,7 +98,7 @@ export const SplashScreen = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                 <div className="space-y-4">
                 <div className="p-4 rounded-lg">
                     <p className="text-[16px] text-white/90">
-                    Thank you for slopping with us! But now/instead, you should support these non-profits committed to making high-quality, human-created knowledge available to the world. Your contribution directly funds reliable human editing, ethical sharing tools, and a permanent public library — helping ensure accurate, trustworthy knowledge is accessible & free forever.
+                    Thank you for slopping with us! But now/instead, you should support these non-profits committed to making high-quality, human-created knowledge available to the world. Your contribution directly funds reliable human editing, ethical sharing tools, and a permanent public library — helping ensure accurate, trustworthy knowledge is accessible & free forever. Learn more and donate below.
                     </p>
                 </div>
                 <div className="space-y-4 pt-4">
