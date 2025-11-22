@@ -31,8 +31,6 @@ jobs:
         with:
           path: './dist' # Ensure this path matches your build output directory (e.g., './dist' for Vite/modern tools)
 
-  ---
-
   # 2. Deploy Job: Deploys the artifact created in the 'build' job
   deploy:
     needs: build # This job runs only after the 'build' job completes successfully
