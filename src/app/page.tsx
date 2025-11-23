@@ -77,8 +77,8 @@ export default function ReelFeedPage() {
   }, [currentVideoId, videos]);
 
   useEffect(() => {
-    // Open splash screen after scrolling from video 4 to 5 (index 3 to 4)
-    if (currentVideoIndex === 4) {
+    // Open splash screen after scrolling to video 5, 13, 31, or 51
+    if (currentVideoIndex === 4 || currentVideoIndex === 12 || currentVideoIndex === 30 || currentVideoIndex === 50) {
       handleOpenSplash();
     }
   }, [currentVideoIndex, handleOpenSplash]);
